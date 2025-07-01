@@ -3,7 +3,6 @@ import json
 import os
 import warnings
 import datetime
-# import fiona
 import geopandas as gpd
 import folium
 import streamlit as st
