@@ -17,7 +17,7 @@ import geemap.foliumap as geemap
 import streamlit as st
 from shapely.geometry import Polygon
 geemap.ee_initialize()
-Map = geemap.Map(center=[113, 111], zoom=18)
+Map = geemap.Map(center=[113, 50], zoom=18)
 Map.add_basemap('SATELLITE')
 Map.to_streamlit(height=300)
 Map
