@@ -12,7 +12,10 @@ import geemap.foliumap as geemap
 import ipywidgets as widgets
 from IPython.display import display
 import os
-
+import ee
+import geemap.foliumap as geemap
+import streamlit as st
+from shapely.geometry import Polygon
 # 创建地图
 Map = geemap.Map()
 Map.add_basemap('HYBRID')  # 添加卫星混合底图
@@ -64,4 +67,13 @@ control_panel = widgets.VBox([
 
 # 显示地图和控制面板
 display(control_panel)
-Map
+# Map
+
+
+
+
+
+
+# 最后，在 Streamlit 页面里渲染地图：
+st.header("我的 Earth Engine 地图")
+Map.to_streamlit(height=600)
