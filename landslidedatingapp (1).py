@@ -16,15 +16,6 @@ import ee
 import geemap.foliumap as geemap
 import streamlit as st
 from shapely.geometry import Polygon
-m = geemap.Map(basemap="HYBRID")
-m.set_center(-98.6, 39.8, 4)
-
-# Streamlit 布局
-st.title("我的 Earth Engine 地图")
-if st.button("添加县级行政区划"):
-    fc = ee.FeatureCollection("TIGER/2018/Counties")
-    m.add_layer(fc.style(color="FF5500", width=1), {}, "County Boundaries")
-    
-# 渲染地图
-st.subheader("地图视图")
-m.to_streamlit(height=600)
+Map = geemap.Map(center=[lon, lat], zoom=18)
+Map.add_basemap('SATELLITE')
+Map.to_streamlit(height=300)
