@@ -12,7 +12,7 @@ st.title("底图切换示例")
 
 # ———— 3. 创建地图对象 ————
 m = geemap.Map(
-    center=[114, 30],
+    center=[30.5468, 114.2980],
     zoom=18,
     add_google_map=True,      # 打开 Google 地图支持
     plugin_Draw=False,
