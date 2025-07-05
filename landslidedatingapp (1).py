@@ -15,8 +15,8 @@ m = geemap.Map(
     center=[30.5468, 114.2980],
     zoom=18,
     add_google_map=True,      # 打开 Google 地图支持
-    plugin_Draw=False,
-    locate_control=False
+    # plugin_Draw=False,
+    # locate_control=False
 )
 # 默认就已经加载了 Google 卫星底图
 m.add_basemap("SATELLITE")
