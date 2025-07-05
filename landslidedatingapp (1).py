@@ -16,7 +16,7 @@ import ee
 import geemap.foliumap as geemap
 import streamlit as st
 from shapely.geometry import Polygon
-geemap.ee_initialize()
+# geemap.ee_initialize()
 Map = geemap.Map(center=[61.5, 100], zoom=18)
 Map.add_basemap('OpenRailwayMap')
 Map.to_streamlit(height=300)
