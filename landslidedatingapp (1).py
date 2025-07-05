@@ -16,38 +16,15 @@ import ee
 import geemap.foliumap as geemap
 import streamlit as st
 from shapely.geometry import Polygon
-# 创建地图
-# ———— 2. 创建地图对象 ————
-m = geemap.Map(
-    basemap="HYBRID",
-    plugin_Draw=False,
-    locate_control=False,
-    add_google_map=False
-)
-m.set_center(-98.5795, 39.8283, 4)
+m = geemap.Map(basemap="HYBRID")
+m.set_center(-98.6, 39.8, 4)
 
-# ———— 3. Streamlit 布局 ————
-st.title("美国县级行政区划可视化")
-
-# 侧边栏中的按钮
-if st.sidebar.button("添加县级行政区划"):
-    # 加载 EE 数据集
-    counties = ee.FeatureCollection("TIGER/2018/Counties")
-    # 可视化参数
-    vis = {
-        "color": "FF5500",
-        "width": 1,
-        "fillColor": "00000000",
-    }
-    m.add_layer(counties.style(**vis), {}, "美国县级行政区划")
-    # 添加图例
-    m.add_legend(
-        title="县界边界",
-        colors=["#FF5500"],
-        labels=["County Boundaries"],
-    )
-    st.sidebar.success("县级行政区划已添加！")
-
-# ———— 4. 渲染地图 ————
+# Streamlit 布局
+st.title("我的 Earth Engine 地图")
+if st.button("添加县级行政区划"):
+    fc = ee.FeatureCollection("TIGER/2018/Counties")
+    m.add_layer(fc.style(color="FF5500", width=1), {}, "County Boundaries")
+    
+# 渲染地图
 st.subheader("地图视图")
 m.to_streamlit(height=600)
