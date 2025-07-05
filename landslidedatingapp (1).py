@@ -17,63 +17,37 @@ import geemap.foliumap as geemap
 import streamlit as st
 from shapely.geometry import Polygon
 # 创建地图
-Map = geemap.Map()
-Map.add_basemap('HYBRID')  # 添加卫星混合底图
-Map.setCenter(-98.5795, 39.8283, 4)  # 设置美国本土中心位置
-
-# 创建按钮
-button = widgets.Button(
-    description='添加县级行政区划',
-    button_style='success',  # 绿色按钮
-    tooltip='点击添加美国县级行政区划图层'
+# ———— 2. 创建地图对象 ————
+m = geemap.Map(
+    basemap="HYBRID",
+    plugin_Draw=False,
+    locate_control=False,
+    add_google_map=False
 )
+m.set_center(-98.5795, 39.8283, 4)
 
-# 按钮点击事件处理函数
-def on_button_clicked(b):
-    # 加载县级行政区划数据
-    counties = ee.FeatureCollection('TIGER/2018/Counties')
+# ———— 3. Streamlit 布局 ————
+st.title("美国县级行政区划可视化")
 
-    # 设置可视化参数
-    vis_params = {
-        'color': 'FF5500',    # 边界颜色 (橙色)
-        'width': 1,           # 边界宽度
-        'fillColor': '00000000' # 填充颜色 (透明)
+# 侧边栏中的按钮
+if st.sidebar.button("添加县级行政区划"):
+    # 加载 EE 数据集
+    counties = ee.FeatureCollection("TIGER/2018/Counties")
+    # 可视化参数
+    vis = {
+        "color": "FF5500",
+        "width": 1,
+        "fillColor": "00000000",
     }
-
-    # 添加图层到地图
-    Map.addLayer(counties.style(**vis_params), {}, '美国县级行政区划')
-
+    m.add_layer(counties.style(**vis), {}, "美国县级行政区划")
     # 添加图例
-    Map.add_legend(
-        title='行政区划边界',
-        colors=['#FF5500'],
-        labels=['县界']
+    m.add_legend(
+        title="县界边界",
+        colors=["#FF5500"],
+        labels=["County Boundaries"],
     )
+    st.sidebar.success("县级行政区划已添加！")
 
-    # 更新按钮状态
-    button.description = '已添加'
-    button.disabled = True
-    button.button_style = ''  # 移除高亮样式
-
-# 绑定按钮点击事件
-button.on_click(on_button_clicked)
-
-# 创建控制面板
-control_panel = widgets.VBox([
-    widgets.HTML('<h3>美国行政区划数据</h3>'),
-    button,
-    widgets.HTML('<p style="color:#888">TIGER/2018/Counties 数据集</p>')
-])
-
-# 显示地图和控制面板
-display(control_panel)
-# Map
-
-
-
-
-
-
-# 最后，在 Streamlit 页面里渲染地图：
-st.header("我的 Earth Engine 地图")
-Map.to_streamlit(height=600)
+# ———— 4. 渲染地图 ————
+st.subheader("地图视图")
+m.to_streamlit(height=600)
