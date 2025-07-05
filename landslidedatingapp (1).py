@@ -12,16 +12,6 @@ import geemap.foliumap as geemap
 import ipywidgets as widgets
 from IPython.display import display
 import os
-# 从环境变量里取出 token
-token = os.environ.get('EARTHENGINE_TOKEN')
-if token is None:
-    st.error("未设置 EARTHENGINE_TOKEN")
-else:
-    # 显式把 token 传给 Initialize
-    ee.Initialize(token=token)
-# 初始化 GEE
-# ee.Authenticate()
-# ee.Initialize(project='ee-wzhitaors')
 
 # 创建地图
 Map = geemap.Map()
