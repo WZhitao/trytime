@@ -8,7 +8,7 @@ Original file is located at
 """
 
 import ee
-import geemap
+import geemap.foliumap as geemap
 import ipywidgets as widgets
 from IPython.display import display
 import os
