@@ -16,7 +16,29 @@ import ee
 import geemap.foliumap as geemap
 import streamlit as st
 from shapely.geometry import Polygon
-# geemap.ee_initialize()
-Map = geemap.Map(center=[61.5, 100], zoom=18)
-Map.add_basemap('OpenRailwayMap')
-Map.to_streamlit(height=300)
+# —— 2. Streamlit 页面布局 ——  
+st.title("底图切换示例")
+
+# —— 3. 创建 geemap 地图 ——  
+# add_google_map=True 会自动加载 Google 地图（默认就是 'SATELLITE'）
+m = geemap.Map(
+    center=[61.5, 100],
+    zoom=18,
+    add_google_map=True,      # 打开 Google 地图支持
+    plugin_Draw=False,
+    locate_control=False
+)
+
+# 可以显式指定 Google 卫星或混合底图
+m.add_basemap("SATELLITE")    # Google 卫星
+# m.add_basemap("HYBRID")     # Google 混合
+
+# —— 4. 按钮：点击后加载 OpenRailwayMap ——  
+if st.sidebar.button("加载铁路图层"):  
+    # geemap 支持的 Carto、OSM、Stamen、OpenRailwayMap 等多种底图
+    m.add_basemap("OpenRailwayMap")  
+    st.sidebar.success("已添加轨道图层")
+
+# —— 5. 渲染地图 ——  
+st.subheader("地图视图")
+m.to_streamlit(height=500)
