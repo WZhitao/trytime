@@ -20,3 +20,4 @@ geemap.ee_initialize()
 Map = geemap.Map(center=[lon, lat], zoom=18)
 Map.add_basemap('SATELLITE')
 Map.to_streamlit(height=300)
+Map
